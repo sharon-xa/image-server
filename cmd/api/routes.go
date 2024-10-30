@@ -9,9 +9,9 @@ import (
 func (app *Application) routes() http.Handler {
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("hello world"))
-	})
+	mux.HandleFunc("POST /image", app.saveImage)
+	mux.HandleFunc("GET /image", app.getImage)
+	mux.HandleFunc("DELETE /image", app.deleteImage)
 
 	loggedHandlers := alice.New(app.logRequest)
 

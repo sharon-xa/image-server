@@ -15,10 +15,15 @@ type Application struct {
 
 func main() {
 	addr := flag.String("addr", ":4000", "HTTP network address")
-	imgDirPath := flag.String("path", "/home/sharon/images/", "HTTP network address")
+	imgDirPath := flag.String("path", "", "HTTP network address")
 	flag.Parse()
 
 	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
+
+	if *imgDirPath == "" {
+		logger.Error("no image directory path specified")
+		os.Exit(1)
+	}
 
 	app := &Application{
 		logger:     logger,
